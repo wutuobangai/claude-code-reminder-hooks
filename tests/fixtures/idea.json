@@ -1,0 +1,396 @@
+[
+  {
+    "name": "idea needs reminder",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "我有个想法：以后做一个月球书签。"
+        }
+      }
+    ],
+    "want": true
+  },
+  {
+    "name": "ordinary question",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "二加二是多少？"
+        }
+      }
+    ],
+    "want": false
+  },
+  {
+    "name": "successful configured note write",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "我有个想法：做星星书签。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/notes/tasks.md",
+                "content": "虚构记录"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "fake-tool-1",
+              "is_error": false,
+              "content": "虚构工具结果"
+            }
+          ]
+        }
+      }
+    ],
+    "want": false
+  },
+  {
+    "name": "failed note write still reminds",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "我有个想法：做星星书签。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/notes/tasks.md",
+                "content": "虚构记录"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "fake-tool-1",
+              "is_error": true,
+              "content": "虚构工具结果"
+            }
+          ]
+        }
+      }
+    ],
+    "want": true
+  },
+  {
+    "name": "invocation without result still reminds",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "我有个想法：做星星书签。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/notes/tasks.md",
+                "content": "虚构记录"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "want": true
+  },
+  {
+    "name": "explicit skip marker",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "以后再做星星书签。"
+        }
+      }
+    ],
+    "want": false,
+    "reply": "无需记待办：这个虚构想法已另记。"
+  },
+  {
+    "name": "pending reply",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "书签选什么颜色？"
+        }
+      }
+    ],
+    "want": true,
+    "reply": "等你拍板再做。"
+  },
+  {
+    "name": "tool result is not next user",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "我有个想法：星星书签。"
+        }
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "fake-tool-1",
+              "is_error": false,
+              "content": "虚构工具结果"
+            }
+          ]
+        }
+      }
+    ],
+    "want": true
+  },
+  {
+    "name": "loop protection",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "我有个想法：星星书签。"
+        }
+      }
+    ],
+    "want": false,
+    "event": {
+      "stop_hook_active": true
+    }
+  },
+  {
+    "name": "custom idea term",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "稍后收藏：星星书签。"
+        }
+      }
+    ],
+    "want": true,
+    "config": {
+      "idea": {
+        "user_terms": [
+          "稍后收藏"
+        ]
+      }
+    }
+  },
+  {
+    "name": "same basename elsewhere is not backlog",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "content": "我有个想法：做云朵书签。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/other/tasks.md"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "user",
+        "message": {
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "fake-tool-1",
+              "content": "虚构成功"
+            }
+          ]
+        }
+      }
+    ],
+    "want": true
+  },
+  {
+    "name": "disabled in config",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "content": "我有个想法：做云朵书签。"
+        }
+      }
+    ],
+    "want": false,
+    "config": {
+      "idea": {
+        "enabled": false
+      }
+    }
+  },
+  {
+    "name": "custom skip marker",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "content": "我有个想法：做云朵书签。"
+        }
+      }
+    ],
+    "want": false,
+    "reply": "无需收藏：虚构想法已保存。",
+    "config": {
+      "idea": {
+        "skip_markers": [
+          "无需收藏"
+        ]
+      }
+    }
+  },
+  {
+    "name": "custom backlog path",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "content": "我有个想法：做云朵书签。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/custom/tasks.md"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "user",
+        "message": {
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "fake-tool-1",
+              "content": "虚构成功"
+            }
+          ]
+        }
+      }
+    ],
+    "want": false,
+    "config": {
+      "idea": {
+        "backlog_paths": [
+          "custom/tasks.md"
+        ]
+      }
+    }
+  },
+  {
+    "name": "missing call IDs never prove a write",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "content": "我有个想法：做云朵书签。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "content": [
+            {
+              "type": "tool_use",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/notes/tasks.md"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "user",
+        "message": {
+          "content": [
+            {
+              "type": "tool_result",
+              "content": "虚构结果缺少调用编号"
+            }
+          ]
+        }
+      }
+    ],
+    "want": true
+  }
+]

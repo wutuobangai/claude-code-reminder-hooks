@@ -1,0 +1,97 @@
+{
+  "idea": {
+    "enabled": true,
+    "backlog_paths": [
+      "notes/tasks.md"
+    ],
+    "user_terms": [
+      "我在想",
+      "想法",
+      "灵感",
+      "打算",
+      "回头",
+      "以后再",
+      "先放着",
+      "记一下",
+      "记下来",
+      "别忘"
+    ],
+    "reply_terms": [
+      "等你拍板",
+      "等你定",
+      "回头再",
+      "以后再",
+      "先不做",
+      "还没定"
+    ],
+    "skip_markers": [
+      "已记待办",
+      "无需记待办"
+    ]
+  },
+  "discussion": {
+    "enabled": true,
+    "discussion_terms": [
+      "探讨",
+      "讨论",
+      "先看",
+      "先分析",
+      "先放着",
+      "先别做",
+      "先不做",
+      "只是看看"
+    ],
+    "go_terms": [
+      "开干",
+      "做吧",
+      "就这么做",
+      "执行吧",
+      "开始做",
+      "动手吧",
+      "直接做"
+    ],
+    "skip_markers": [
+      "用户已明确要求"
+    ],
+    "record_paths": [
+      "notes/tasks.md"
+    ],
+    "action_tools": [
+      "WebSearch",
+      "WebFetch",
+      "Agent",
+      "Task",
+      "Workflow"
+    ],
+    "shell_action_terms": [
+      "git commit",
+      "git push",
+      "rm ",
+      "mv ",
+      "cp ",
+      "mkdir ",
+      "tee ",
+      ">>",
+      "> "
+    ]
+  },
+  "filesize": {
+    "enabled": true,
+    "rules": [
+      {
+        "pattern": "CLAUDE.md",
+        "max_lines": 450,
+        "max_chars": 40000,
+        "max_line_chars": 500,
+        "max_long_lines": 3
+      },
+      {
+        "pattern": "MEMORY.md",
+        "max_lines": 180,
+        "max_chars": 20000,
+        "max_line_chars": 260,
+        "max_long_lines": 3
+      }
+    ]
+  }
+}

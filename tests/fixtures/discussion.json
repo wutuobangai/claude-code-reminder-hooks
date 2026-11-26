@@ -1,0 +1,327 @@
+[
+  {
+    "name": "discussion then edit",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "先讨论月球书签方案。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Edit",
+              "input": {
+                "file_path": "__ROOT__/src/demo.txt"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "want": true
+  },
+  {
+    "name": "discussion read only",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "先讨论月球书签方案。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Read",
+              "input": {
+                "file_path": "__ROOT__/src/demo.txt"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "want": false
+  },
+  {
+    "name": "discussion record allowed",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "先讨论月球书签方案。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/notes/tasks.md"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "want": false
+  },
+  {
+    "name": "later go clears mode",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "先讨论月球书签方案。"
+        }
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "开干"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/src/demo.txt"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "want": false
+  },
+  {
+    "name": "earlier discussion persists",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "先讨论月球书签方案。"
+        }
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "颜色如何？"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "WebSearch",
+              "input": {
+                "query": "虚构月球书签"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "want": true
+  },
+  {
+    "name": "explicit authorization marker",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "先讨论月球书签方案。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Edit",
+              "input": {
+                "file_path": "__ROOT__/src/demo.txt"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "want": false,
+    "reply": "用户已明确要求：修改虚构文件。"
+  },
+  {
+    "name": "custom mode terms",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "仅评议"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/src/demo.txt"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "want": true,
+    "config": {
+      "discussion": {
+        "discussion_terms": [
+          "仅评议"
+        ],
+        "go_terms": [
+          "现在制作"
+        ]
+      }
+    }
+  },
+  {
+    "name": "shell action heuristic",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "先讨论书签。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Bash",
+              "input": {
+                "command": "mkdir fake-demo"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "want": true
+  },
+  {
+    "name": "loop protection",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "先讨论书签。"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/src/demo.txt"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "want": false,
+    "event": {
+      "stop_hook_active": true
+    }
+  },
+  {
+    "name": "new user scope ignores old edit",
+    "transcript": [
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "开干"
+        }
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "fake-tool-1",
+              "name": "Write",
+              "input": {
+                "file_path": "__ROOT__/src/demo.txt"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "先讨论配色。"
+        }
+      }
+    ],
+    "want": false
+  }
+]

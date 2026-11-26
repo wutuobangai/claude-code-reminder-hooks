@@ -1,0 +1,32 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/ABSOLUTE/PATH/claude-code-reminder-hooks/hooks/idea-to-backlog-reminder.sh'",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash '/ABSOLUTE/PATH/claude-code-reminder-hooks/hooks/discussion-drift-reminder.sh'",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/ABSOLUTE/PATH/claude-code-reminder-hooks/hooks/filesize-reminder.sh'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

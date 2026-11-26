@@ -1,0 +1,49 @@
+[
+  {
+    "name": "Chinese counts characters not bytes",
+    "file": "RULES.md",
+    "text": "你好世界",
+    "want": false
+  },
+  {
+    "name": "total characters above limit",
+    "file": "RULES.md",
+    "text": "你好世界呀",
+    "want": true,
+    "contains": "5 字符"
+  },
+  {
+    "name": "line threshold",
+    "file": "RULES.md",
+    "text": "甲\n乙\n丙",
+    "want": true,
+    "contains": "3 行"
+  },
+  {
+    "name": "long line threshold",
+    "file": "RULES.md",
+    "text": "天地玄黄宇",
+    "want": true,
+    "contains": "1 行超过"
+  },
+  {
+    "name": "unwatched file",
+    "file": "other.md",
+    "text": "天地玄黄宇宙洪荒",
+    "want": false
+  },
+  {
+    "name": "response path fallback",
+    "file": "RULES.md",
+    "text": "天地玄黄宇",
+    "want": true,
+    "response_only": true
+  },
+  {
+    "name": "missing file",
+    "file": "missing/RULES.md",
+    "text": "",
+    "want": false,
+    "missing": true
+  }
+]
